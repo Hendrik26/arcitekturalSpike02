@@ -1,0 +1,29 @@
+
+<div *ngIf="loginUser.id">
+  <h1>Welcome {{loginUser.email}}!</h1>
+  Authority Level: {{loginUser.authorityLevel}}&nbsp;&nbsp;&nbsp;Created: {{loginUser.created | date:'dd.MM.yyyy hh:mm'}}
+  <hr>
+</div>
+<div *ngIf="!loginUser.id">
+  <input type="text" [(ngModel)]="email" placeholder="email"  name="email"><br>
+  <input type="password" [(ngModel)]="password" placeholder="password"  name="password">
+  <br><br>
+  <button (click)="signup()" [disabled]="!email || !password">
+    Signup
+  </button>
+  &nbsp;&nbsp;
+  <button (click)="login()" [disabled]="!email || !password">
+    Login
+  </button>
+</div>
+<h6 *ngIf="loginUser.id && passReset">Please, check your mailbox</h6>
+<button (click)="logout()" *ngIf="loginUser.id">
+  Logout
+</button>
+&nbsp;&nbsp;
+<button (click)="resetPassword()" *ngIf="loginUser.id && !passReset">
+  Reset Password
+</button>
+
+
+
