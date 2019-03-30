@@ -1,0 +1,28 @@
+*** general steps for the creation of this app ***
+
+TODO: create new project in the firebase console [done]
+
+TODO: enable und configure email/password authentication [done]
+
+TODO: create new angular cli project in PhpStorm [done]
+
+the actual rxjs version has a bug
+TODO: install older rxjs version  - npm install rxjs@6.0.0 --save [done]
+
+TODO: install - npm install firebase angularfire2 --save [done]
+
+TODO: install - npm install promise-polyfill --save-exact [done]
+
+TODO: add Firebase API and project credentials to the environment variable (enviromments/environment.ts) [done]
+
+TODO: configure our app module [done]
+
+TODO: Creating the Auth Service - ng g s srv  [done]
+
+TODO: Implement the Auth Service Injectable [done]
+
+TODO: Implement the Component Class [done]
+
+TODO: Implement the Component Template [done]
+
+
