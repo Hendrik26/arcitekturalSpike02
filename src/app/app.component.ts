@@ -65,8 +65,7 @@ export class AppComponent {
                 value => {
                     if (value) {
                         this.loginUser.authorityLevel = value.authorityLevel;
-                        this.loginUser.createdTs = value.created;
-                        this.loginUser.created = this.loginUser.createdTs.toDate();
+                        this.loginUser.created = value.created.toDate();
                         clearInterval(this.setIntervalHandler);
                     }
                 }

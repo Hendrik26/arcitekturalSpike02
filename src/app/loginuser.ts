@@ -6,5 +6,4 @@ export class LoginUser {
     email: string;
     authorityLevel: number;
     created: Date;
-    createdTs: Timestamp;
 }
