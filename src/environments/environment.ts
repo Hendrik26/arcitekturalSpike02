@@ -5,12 +5,12 @@
 export const environment = {
     production: false,
     firebase: {
-        apiKey: 'AIzaSyBLepbxMmiV0SoH7stAVU8Vvxzligp7qRc',
-        authDomain: 'uh001-65c6f.firebaseapp.com',
-        databaseURL: 'https://uh001-65c6f.firebaseio.com',
-        projectId: 'uh001-65c6f',
-        storageBucket: 'uh001-65c6f.appspot.com',
-        messagingSenderId: '308265721577'
+        apiKey: "AIzaSyAp-dSeMe_74FLPB84KXTsabvJX5JBt4IA",
+        authDomain: "arcitekturalspike02.firebaseapp.com",
+        databaseURL: "https://arcitekturalspike02.firebaseio.com",
+        projectId: "arcitekturalspike02",
+        storageBucket: "arcitekturalspike02.appspot.com",
+        messagingSenderId: "118248068266"
     }
 };
 
