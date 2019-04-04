@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {SrvService} from './srv.service';
 import {LoginUser} from './loginuser';
-import {firestore} from 'firebase/app';
-import Timestamp = firestore.Timestamp;
+
+
 
 
 @Component({
@@ -14,10 +14,9 @@ export class AppComponent {
     email: string;
     password: string;
     loginUser: LoginUser;
-    passReset = false;
+    passReset1 = false;
+    passReset2 = false;
     passResetEmail: string;
-
-    private setIntervalHandler: any;
 
 
     constructor(
@@ -26,32 +25,23 @@ export class AppComponent {
         this.loginUser = new LoginUser();
     }
 
-    login() {
-        this.srvService.login(this.email, this.password)
+    signin(type: number) {
+        this.srvService.signin$(type, this.email, this.password)
             .subscribe(value => {
-                this.loginUser.id = value[0];
+                this.loginUser.id = value[0].user.uid;
+                this.loginUser.providerId = value[0].additionalUserInfo.providerId;
+                this.passReset2 = (value[0].additionalUserInfo.providerId === 'password');
                 if (value[1]) {
                     this.loginUser.email = value[1].email;
                     this.loginUser.authorityLevel = value[1].authorityLevel;
                     this.loginUser.created = value[1].created.toDate();
                 }
             });
-    }
-
-    signup() {
-        this.srvService.signup(this.email, this.password)
-            .subscribe(value => {
-                this.loginUser.id = value[0];
-                if (value[1]) {
-                    this.loginUser.email = value[1].email;
-                    this.loginUser.authorityLevel = value[1].authorityLevel;
-                    this.loginUser.created = value[1].created.toDate();
-                }
-            });
+        this.email = '';
+        this.password = '';
     }
 
     logout() {
-
         this.loginUser.id = null;
         this.loginUser.email = null;
         this.srvService.logout();
@@ -59,7 +49,7 @@ export class AppComponent {
 
     resetPassword() {
         this.srvService.resetPassword(this.passResetEmail)
-            .then(() => this.passReset = true);
+            .then(() => this.passReset1 = true);
     }
 
 }

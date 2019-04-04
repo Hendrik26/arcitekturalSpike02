@@ -6,4 +6,5 @@ export class LoginUser {
     email: string;
     authorityLevel: number;
     created: Date;
+    providerId: string;
 }

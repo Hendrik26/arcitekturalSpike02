@@ -11,20 +11,20 @@ export class SrvService {
     constructor(
         private firebaseAuth: AngularFireAuth,
         private db: AngularFirestore
-    ) {    }
-
-    login(email: string, password: string): Observable<any> {
-        const user$: Observable<any> = from(this.firebaseAuth.auth
-            .signInWithEmailAndPassword(email, password));
-        const userProfile$: Observable<any> = user$.pipe(switchMap(value => {
-            return this.db.collection('/userProfile').doc(value.user.uid).valueChanges();
-        }));
-        return combineLatest(user$, userProfile$);
+    ) {
     }
 
-    signup(email: string, password: string): Observable<any> {
-        const user$: Observable<any> = from(this.firebaseAuth.auth
-            .createUserWithEmailAndPassword(email, password));
+    signin$(type: number, email: string, password: string): Observable<any> {
+        let user$: Observable<any>;
+        if (type === 0) {
+            user$ = from(this.firebaseAuth.auth.signInWithEmailAndPassword(email, password));
+        }
+        if (type === 1) {
+            user$ = from(this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password));
+        }
+        if (type === 2) {
+            user$ = from(this.firebaseAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()));
+        }
         const userProfile$: Observable<any> = user$.pipe(switchMap(value => {
             return this.db.collection('/userProfile').doc(value.user.uid).valueChanges();
         }));
