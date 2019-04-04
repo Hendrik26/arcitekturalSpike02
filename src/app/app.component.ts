@@ -26,53 +26,29 @@ export class AppComponent {
         this.loginUser = new LoginUser();
     }
 
-
     login() {
         this.srvService.login(this.email, this.password)
-            .then(value => {
-                console.log('1. Nice, it worked!', value.user.uid);
-                this.loginUser.email = value.user.email;
-                this.loginUser.id = value.user.uid;
-                this.getUserProfile(value.user.uid);
-            })
-            .catch(err => {
-                console.log('Something went wrong:', err.message);
+            .subscribe(value => {
+                this.loginUser.id = value[0];
+                if (value[1]) {
+                    this.loginUser.email = value[1].email;
+                    this.loginUser.authorityLevel = value[1].authorityLevel;
+                    this.loginUser.created = value[1].created.toDate();
+                }
             });
-        this.passResetEmail = this.email;
-        this.email = this.password = '';
     }
 
     signup() {
         this.srvService.signup(this.email, this.password)
-            .then(value => {
-                console.log('1. Nice, it worked!', value.user.email);
-                this.loginUser.email = value.user.email;
-                this.loginUser.id = value.user.uid;
-            })
-            .catch(err => {
-                console.log('Something went wrong:', err.message);
-            });
-        this.setIntervalHandler = setInterval(() => {
-            this.getUserProfile(this.loginUser.id);
-        }, 500);
-        this.passResetEmail = this.email;
-        this.email = this.password = '';
-    }
-
-    getUserProfile(id: string): void {
-        if (id) {
-            this.srvService.getUserProfile(id).subscribe(
-                value => {
-                    if (value) {
-                        this.loginUser.authorityLevel = value.authorityLevel;
-                        this.loginUser.created = value.created.toDate();
-                        clearInterval(this.setIntervalHandler);
-                    }
+            .subscribe(value => {
+                this.loginUser.id = value[0];
+                if (value[1]) {
+                    this.loginUser.email = value[1].email;
+                    this.loginUser.authorityLevel = value[1].authorityLevel;
+                    this.loginUser.created = value[1].created.toDate();
                 }
-            );
-        }
+            });
     }
-
 
     logout() {
 
@@ -81,11 +57,9 @@ export class AppComponent {
         this.srvService.logout();
     }
 
-
     resetPassword() {
         this.srvService.resetPassword(this.passResetEmail)
             .then(() => this.passReset = true);
     }
-
 
 }
